@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Orders\Infrastructure\Repository;
 
-use App\Billings\Domain\Aggregate\Account\Account;
 use App\Orders\Domain\Aggregate\Order\Order;
 use App\Orders\Domain\Repository\OrderRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -22,12 +21,12 @@ class OrderRepository extends ServiceEntityRepository implements OrderRepository
         $this->getEntityManager()->flush();
     }
 
-    public function findByUserId(string $userId): ?Account
+    public function findOneByUserId(string $id, string $userId): ?Order
     {
-        return $this->findOneBy(['userId' => $userId]);
+        return $this->findOneBy(['userId' => $userId, 'id' => $id]);
     }
 
-    public function findOneById(string $id): ?Account
+    public function findOneById(string $id): ?Order
     {
         return $this->find($id);
     }

@@ -25,7 +25,7 @@ readonly class CreateOrderCommandHandler implements CommandHandlerInterface
         $this->orderRepository->add($order);
 
         return new CreateOrderCommandResult(
-            $account->getId()
+            $order->getId()
         );
     }
 }

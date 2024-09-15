@@ -10,5 +10,6 @@ interface OrderRepositoryInterface
 {
     public function add(Order $order): void;
 
+    public function findOneByUserId(string $id, string $userId): ?Order;
 
 }

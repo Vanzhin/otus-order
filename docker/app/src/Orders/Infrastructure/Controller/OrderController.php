@@ -4,9 +4,8 @@ declare(strict_types=1);
 namespace App\Orders\Infrastructure\Controller;
 
 
-use App\Billings\Application\UseCase\Command\CreateAccount\CreateAccountCommand;
-use App\Billings\Application\UseCase\Query\FindAccount\FindAccountQuery;
 use App\Orders\Application\UseCase\Command\CreateOrder\CreateOrderCommand;
+use App\Orders\Application\UseCase\Query\FindOrder\FindOrderQuery;
 use App\Shared\Application\Command\CommandBusInterface;
 use App\Shared\Application\Query\QueryBusInterface;
 use App\Shared\Domain\Service\AssertService;
@@ -41,12 +40,12 @@ class OrderController extends AbstractController
         return new JsonResponse($result);
     }
 
-    #[Route('', name: 'find_by_user_id', methods: ['GET'])]
-    public function getByUserId(): JsonResponse
+    #[Route('/{id}', name: 'find_my_orde', methods: ['GET'])]
+    public function getMyOrders(string $id): JsonResponse
     {
         $userUlid = $this->headersService->getUserUlid();
         AssertService::notNull($userUlid, 'No user\'s id provided.');
-        $query = new FindAccountQuery($userUlid);
+        $query = new FindOrderQuery($id, $userUlid);
         $result = $this->queryBus->execute($query);
 
         return new JsonResponse($result);

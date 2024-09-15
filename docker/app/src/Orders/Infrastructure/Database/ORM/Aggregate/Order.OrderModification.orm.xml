@@ -2,18 +2,17 @@
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-    <entity name="App\Orders\Domain\Aggregate\Order\Order" table="orders_order">
+    <entity name="App\Orders\Domain\Aggregate\Order\OrderModification" table="orders_order_modifications">
         <id name="id" type="string" length="26">
             <generator strategy="NONE"/>
         </id>
-        <field name="userId" column="user_id" type="string" length="26"/>
-        <field name="sum" type="float"/>
-        <one-to-many field="modifications" target-entity="App\Orders\Domain\Aggregate\Order\OrderModification"
-                     mapped-by="order">
+        <field name="status" enum-type=" App\Orders\Domain\Aggregate\Order\OrderStatus" length="26"/>
+        <field name="changedAt" type="datetime_immutable" column="changed_at"/>
+        <many-to-one field="order" target-entity="App\Orders\Domain\Aggregate\Order\Order"
+                     inversed-by="modifications">
             <cascade>
                 <cascade-persist/>
             </cascade>
-        </one-to-many>
-
+        </many-to-one>
     </entity>
 </doctrine-mapping>
