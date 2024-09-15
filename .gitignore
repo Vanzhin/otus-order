@@ -1,0 +1,5 @@
+.idea/
+###> lexik/jwt-authentication-bundle ###
+/docker/app/config/jwt/
+###< lexik/jwt-authentication-bundle ###
+
