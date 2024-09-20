@@ -10,6 +10,9 @@ use App\Shared\Application\Command\CommandBusInterface;
 use App\Shared\Application\Query\QueryBusInterface;
 use App\Shared\Domain\Service\AssertService;
 use App\Shared\Domain\Service\RequestHeadersService;
+use App\Shared\Infrastructure\Exception\AppException;
+use App\Shared\Infrastructure\Services\Billing\Api\VO\TransactionVO;
+use App\Shared\Infrastructure\Services\Billing\Contracts\ServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,6 +25,7 @@ class OrderController extends AbstractController
         private readonly QueryBusInterface     $queryBus,
         private readonly CommandBusInterface   $commandBus,
         private readonly RequestHeadersService $headersService,
+        private readonly ServiceInterface      $billingService,
     )
     {
     }
@@ -34,8 +38,17 @@ class OrderController extends AbstractController
         AssertService::numeric($sum, 'No order\'s sum provided');
         $userUlid = $this->headersService->getUserUlid();
         AssertService::notNull($userUlid, 'No user\'s id provided.');
+        $response = $this->billingService->getAccountBalance($userUlid);
+        if (!$response->isSuccess()) {
+            throw new \Exception($response->getMessage());
+        };
+        if ($response->getData() <= $sum) {
+            throw new AppException('User has not enough money in the account.');
+        };
         $command = new CreateOrderCommand($userUlid, $sum);
         $result = $this->commandBus->execute($command);
+        $transactionVo = new TransactionVO($sum, $result->id, 'order');
+        $this->billingService->withdrawFromAccount($transactionVo, $userUlid);
 
         return new JsonResponse($result);
     }
