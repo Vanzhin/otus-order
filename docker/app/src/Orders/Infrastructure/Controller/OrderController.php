@@ -34,6 +34,7 @@ class OrderController extends AbstractController
         $data = json_decode($request->getContent(), true);
         $sum = $data['sum'] ?? null;
         AssertService::numeric($sum, 'No order\'s sum provided');
+        AssertService::greaterThan($sum, 0, 'Sum must be positive');
         $userUlid = $this->headersService->getUserUlid();
         AssertService::notNull($userUlid, 'No user\'s id provided.');
         $command = new CreateOrderCommand($userUlid, $sum);

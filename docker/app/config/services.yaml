@@ -39,3 +39,12 @@ services:
     public: true
     resource: '../src/*/Domain/Factory'
     exclude: '../src/Shared/*'
+
+  App\Shared\Infrastructure\Api\Billing\Api:
+    #    class: App\Share\Infrastructure\Services\Billing\Api
+    arguments:
+      $config:
+        #        base_uri: 'http://arch.homework'
+        base_uri: '%env(BASE_URI_BILLING)%'
+        headers:
+          Accept: 'application/json'

@@ -9,7 +9,7 @@ use App\Orders\Application\DTO\Order\OrderDTO;
 
 readonly class FindOrderQueryResult
 {
-    public function __construct(public ?OrderDTO $account)
+    public function __construct(public ?OrderDTO $order)
     {
     }
 }
