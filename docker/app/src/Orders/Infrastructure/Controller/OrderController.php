@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/order', name: 'app_api_order')]
+#[Route('/api/order', name: 'app_api_order')]
 class OrderController extends AbstractController
 {
     public function __construct(
