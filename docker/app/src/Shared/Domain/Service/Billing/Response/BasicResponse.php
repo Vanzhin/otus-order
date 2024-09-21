@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-namespace App\Shared\Infrastructure\Services\Billing\Service\Response;
+namespace App\Shared\Domain\Service\Billing\Response;
 
 class BasicResponse implements \JsonSerializable
 {

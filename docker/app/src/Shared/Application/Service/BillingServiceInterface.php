@@ -2,12 +2,12 @@
 declare(strict_types=1);
 
 
-namespace App\Shared\Infrastructure\Services\Billing\Contracts;
+namespace App\Shared\Application\Service;
 
-use App\Shared\Infrastructure\Services\Billing\Api\VO\TransactionVO;
-use App\Shared\Infrastructure\Services\Billing\Service\Response\BasicResponse;
+use App\Shared\Domain\Service\Billing\Response\BasicResponse;
+use App\Shared\Infrastructure\Api\Billing\VO\TransactionVO;
 
-interface ServiceInterface
+interface BillingServiceInterface
 {
     public function getAccount(string $userId): BasicResponse;
 

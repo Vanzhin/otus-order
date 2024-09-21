@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-namespace App\Shared\Infrastructure\Services\Billing\Api\VO;
+namespace App\Shared\Infrastructure\Api\Billing\VO;
 
 readonly class TransactionVO implements \JsonSerializable
 {

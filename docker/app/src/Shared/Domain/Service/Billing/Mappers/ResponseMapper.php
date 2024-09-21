@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Services\Billing\Service\Mappers;
+namespace App\Shared\Domain\Service\Billing\Mappers;
 
-use App\Shared\Infrastructure\Services\Billing\Service\Response\BasicResponse;
+use App\Shared\Domain\Service\Billing\Response\BasicResponse;
 use Psr\Http\Message\ResponseInterface;
 
 class ResponseMapper

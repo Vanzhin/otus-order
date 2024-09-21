@@ -2,12 +2,12 @@
 declare(strict_types=1);
 
 
-namespace App\Shared\Infrastructure\Services\Billing\Contracts;
+namespace App\Shared\Application\Api;
 
-use App\Shared\Infrastructure\Services\Billing\Api\VO\TransactionVO;
+use App\Shared\Infrastructure\Api\Billing\VO\TransactionVO;
 use Psr\Http\Message\ResponseInterface;
 
-interface ApiInterface
+interface BillingApiInterface
 {
     public function getAccount(string $userId): ResponseInterface;
 

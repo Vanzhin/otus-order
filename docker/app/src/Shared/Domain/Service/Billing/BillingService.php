@@ -2,17 +2,17 @@
 declare(strict_types=1);
 
 
-namespace App\Shared\Infrastructure\Services\Billing\Service;
+namespace App\Shared\Domain\Service\Billing;
 
-use App\Shared\Infrastructure\Services\Billing\Api\VO\TransactionVO;
-use App\Shared\Infrastructure\Services\Billing\Contracts\ApiInterface;
-use App\Shared\Infrastructure\Services\Billing\Contracts\ServiceInterface;
-use App\Shared\Infrastructure\Services\Billing\Service\Mappers\ResponseMapper;
-use App\Shared\Infrastructure\Services\Billing\Service\Response\BasicResponse;
+use App\Shared\Application\Api\BillingApiInterface;
+use App\Shared\Application\Service\BillingServiceInterface;
+use App\Shared\Domain\Service\Billing\Mappers\ResponseMapper;
+use App\Shared\Domain\Service\Billing\Response\BasicResponse;
+use App\Shared\Infrastructure\Api\Billing\VO\TransactionVO;
 
-class Service implements ServiceInterface
+class BillingService implements BillingServiceInterface
 {
-    public function __construct(private readonly ApiInterface $api, private readonly ResponseMapper $mapper)
+    public function __construct(private readonly BillingApiInterface $api, private readonly ResponseMapper $mapper)
     {
     }
 

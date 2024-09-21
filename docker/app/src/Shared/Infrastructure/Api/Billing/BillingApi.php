@@ -2,14 +2,14 @@
 declare(strict_types=1);
 
 
-namespace App\Shared\Infrastructure\Services\Billing\Api;
+namespace App\Shared\Infrastructure\Api\Billing;
 
-use App\Shared\Infrastructure\Services\Billing\Api\VO\TransactionVO;
-use App\Shared\Infrastructure\Services\Billing\Contracts\ApiInterface;
+use App\Shared\Application\Api\BillingApiInterface;
+use App\Shared\Infrastructure\Api\Billing\VO\TransactionVO;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
 
-final class Api extends \GuzzleHttp\Client implements ApiInterface
+final class BillingApi extends \GuzzleHttp\Client implements BillingApiInterface
 {
     private const string URI_CREATE_ACCOUNT_TRANSACTION = '/billing/account/transaction';
     private const string URI_GET_ACCOUNT = '/billing/account';

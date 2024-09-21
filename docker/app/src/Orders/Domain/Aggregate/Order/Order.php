@@ -5,11 +5,13 @@ namespace App\Orders\Domain\Aggregate\Order;
 
 
 use App\Orders\Domain\Aggregate\Order\Specification\OrderSpecification;
+use App\Orders\Domain\Event\OrderCreatedEvent;
+use App\Shared\Domain\Aggregate\Aggregate;
 use App\Shared\Domain\Service\UlidService;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-class Order
+class Order extends Aggregate
 {
     private readonly string $id;
     private ?\DateTimeImmutable $statusUpdatedAt = null;
@@ -28,6 +30,7 @@ class Order
         $this->id = UlidService::generate();
         $this->modifications = new ArrayCollection();
         $this->modifications->add(new OrderModification($this));
+        $this->raise(new OrderCreatedEvent($this->id));
     }
 
     public function getId(): string
@@ -54,6 +57,5 @@ class Order
     {
         return $this->modifications;
     }
-
 
 }

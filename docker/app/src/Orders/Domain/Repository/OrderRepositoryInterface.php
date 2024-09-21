@@ -12,4 +12,6 @@ interface OrderRepositoryInterface
 
     public function findOneByUserId(string $id, string $userId): ?Order;
 
+    public function findOneById(string $id): ?Order;
+
 }
