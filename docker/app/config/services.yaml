@@ -24,6 +24,9 @@ services:
     App\Shared\Application\Query\QueryHandlerInterface:
       tags:
         - { name: messenger.message_handler, bus: query.bus }
+    App\Shared\Application\Event\EventHandlerInterface:
+      tags:
+        - { name: messenger.message_handler, bus: event.bus }
 
     App\Shared\Domain\Specification\SpecificationInterface:
       public: true
@@ -41,10 +44,8 @@ services:
     exclude: '../src/Shared/*'
 
   App\Shared\Infrastructure\Api\Billing\Api:
-    #    class: App\Share\Infrastructure\Services\Billing\Api
     arguments:
       $config:
-        #        base_uri: 'http://arch.homework'
         base_uri: '%env(BASE_URI_BILLING)%'
         headers:
           Accept: 'application/json'

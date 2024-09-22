@@ -20,7 +20,7 @@ final class Api extends \GuzzleHttp\Client implements BillingApiInterface
         return $this->post(self::URI_CREATE_ACCOUNT_TRANSACTION,
             [
                 RequestOptions::HEADERS => $this->addXUserHeader($userId),
-                RequestOptions::BODY => $transactionVO
+                RequestOptions::JSON => $transactionVO
             ]
         );
     }

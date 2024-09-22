@@ -23,7 +23,6 @@ class OrderMaker
         $this->orderRepository->add($order);
 
         return $order;
-
     }
 
 }

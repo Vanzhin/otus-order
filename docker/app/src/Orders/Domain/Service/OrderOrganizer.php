@@ -23,7 +23,7 @@ readonly class OrderOrganizer
         // проверяю, есть ли деньги на счете пользователя
         $response = $this->billingService->getAccountBalance($userId);
         AssertService::true($response->isSuccess(), $response->getMessage());
-        AssertService::lessThanEq($response->getData(), $sum, 'User has not enough money in the account.');
+        AssertService::greaterThanEq($response->getData(), $sum, 'User has not enough money in the account.');
 
         return $this->maker->make($userId, $sum);
     }

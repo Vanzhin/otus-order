@@ -48,9 +48,10 @@ class BillingService implements BillingServiceInterface
         return $this->mapper->buildBasicResponse($response);
     }
 
-    #[\Override] public function getAccountBalance(string $userId,): BasicResponse
+    #[\Override] public function getAccountBalance(string $userId): BasicResponse
     {
         $response = $this->api->getAccount($userId);
+
         return $this->mapper->buildGetAccountBalanceResponse($response);
     }
 }
