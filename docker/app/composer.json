@@ -12,6 +12,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.2",
         "guzzlehttp/guzzle": "^7.9",
+        "symfony/amqp-messenger": "^5.4",
         "symfony/console": "7.0.*",
         "symfony/dotenv": "7.0.*",
         "symfony/flex": "^2",
@@ -21,6 +22,7 @@
         "symfony/runtime": "7.0.*",
         "symfony/uid": "7.0.*",
         "symfony/validator": "7.0.*",
+        "symfony/serializer": "^7.1",
         "symfony/yaml": "7.0.*",
         "webmozart/assert": "^1.11"
     },

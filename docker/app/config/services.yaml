@@ -27,6 +27,9 @@ services:
     App\Shared\Application\Event\EventHandlerInterface:
       tags:
         - { name: messenger.message_handler, bus: event.bus }
+    App\Shared\Application\Message\MessageHandlerInterface:
+      tags:
+        - { name: messenger.message_handler, transport: [ external_messages ] }
 
     App\Shared\Domain\Specification\SpecificationInterface:
       public: true

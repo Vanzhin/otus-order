@@ -14,13 +14,18 @@ RUN apt-get update && apt-get install --no-install-recommends --no-install-sugge
         libpq-dev \
         unzip \
         libzip-dev \
+        librabbitmq-dev \
     && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-install \
         opcache \
         zip \
         pdo \
-        pdo_pgsql
+        pdo_pgsql \
+    && pecl install \
+        amqp \
+    && docker-php-ext-enable \
+        amqp
 
 # копируется файл для php
 COPY php.ini /usr/local/etc/php/php.ini
