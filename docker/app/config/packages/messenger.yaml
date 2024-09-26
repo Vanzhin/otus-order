@@ -44,7 +44,7 @@ framework:
 
         routing:
             # Route your messages to the transports
-            'App\Monitors\Domain\Message\ExternalMessageToForward': external_messages_to_forward
+            'App\Orders\Domain\Message\ExternalMessageToForward': external_messages_to_forward
             # 'App\Message\YourMessage': async
 # when@test:
 #    framework:
