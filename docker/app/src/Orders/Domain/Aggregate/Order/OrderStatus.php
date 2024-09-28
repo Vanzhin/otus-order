@@ -9,7 +9,11 @@ enum OrderStatus: string
     /*
      * Оформлен.
      */
-    case ISSUED = 'issued';
+    case CREATED = 'created';
+    /*
+     * Оформлен.
+     */
+    case PAYMENT_AWAIT = 'payment await';
 
     /*
      * Оплачен.

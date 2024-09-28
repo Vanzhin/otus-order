@@ -52,3 +52,5 @@ services:
         base_uri: '%env(BASE_URI_BILLING)%'
         headers:
           Accept: 'application/json'
+        http_errors: false
+

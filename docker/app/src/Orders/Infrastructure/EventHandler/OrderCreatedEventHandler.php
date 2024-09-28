@@ -2,8 +2,12 @@
 
 namespace App\Orders\Infrastructure\EventHandler;
 
+use App\Orders\Application\DTO\Order\OrderDTOTransformer;
+use App\Orders\Domain\Aggregate\Order\OrderModification;
+use App\Orders\Domain\Aggregate\Order\OrderStatus;
 use App\Orders\Domain\Event\OrderCreatedEvent;
 use App\Orders\Domain\Message\ExternalMessageToForward;
+use App\Orders\Domain\Repository\OrderModificationRepositoryInterface;
 use App\Orders\Domain\Repository\OrderRepositoryInterface;
 use App\Shared\Application\Event\EventHandlerInterface;
 use App\Shared\Application\Message\MessageBusInterface;
@@ -15,9 +19,11 @@ use Symfony\Component\Messenger\Envelope;
 readonly class OrderCreatedEventHandler implements EventHandlerInterface
 {
     public function __construct(
-        private BillingServiceInterface  $billingService,
-        private OrderRepositoryInterface $orderRepository,
-        private MessageBusInterface $messageBus,
+        private BillingServiceInterface              $billingService,
+        private OrderRepositoryInterface             $orderRepository,
+        private MessageBusInterface                  $messageBus,
+        private OrderDTOTransformer                  $orderDTOTransformer,
+        private OrderModificationRepositoryInterface $orderModificationRepository,
     )
     {
     }
@@ -26,9 +32,17 @@ readonly class OrderCreatedEventHandler implements EventHandlerInterface
     {
         $order = $this->orderRepository->findOneById($event->orderId);
         $transactionVo = new TransactionVO($order->getSum(), $order->getId(), 'order');
-        $this->billingService->withdrawFromAccount($transactionVo, $order->getUserId());
-        $message2 = new ExternalMessageToForward('order-created', $transactionVo->jsonSerialize());
-        $envelope = new Envelope($message2, [new AmqpStamp("#")]);
+        $response = $this->billingService->withdrawFromAccount($transactionVo, $order->getUserId());
+        // меняю статус в зависимости от успеха оплаты
+        $order->addModification(
+            new OrderModification(
+                $order,
+                $response->isSuccess() ? OrderStatus::PAID : OrderStatus::PAYMENT_AWAIT));
+        $this->orderRepository->add($order);
+
+        $orderDto = $this->orderDTOTransformer->fromAccountEntity($order);
+        $message = new ExternalMessageToForward($order->getLastModification()->getStatus()->value, $orderDto->jsonSerialize());
+        $envelope = new Envelope($message, [new AmqpStamp("#")]);
 
         $this->messageBus->execute($envelope);
 

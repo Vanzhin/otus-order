@@ -24,7 +24,6 @@ class Order extends Aggregate
         private readonly string             $userId,
         private readonly float              $sum,
         private readonly OrderSpecification $orderSpecification,
-
     )
     {
         $this->id = UlidService::generate();
@@ -58,4 +57,13 @@ class Order extends Aggregate
         return $this->modifications;
     }
 
+    public function getLastModification(): OrderModification
+    {
+        return $this->modifications->last();
+    }
+
+    public function addModification(OrderModification $orderModification): void
+    {
+        $this->modifications->add($orderModification);
+    }
 }

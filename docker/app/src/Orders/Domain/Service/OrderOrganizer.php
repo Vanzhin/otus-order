@@ -21,10 +21,9 @@ readonly class OrderOrganizer
     public function placeOrder(string $userId, float $sum): Order
     {
         // проверяю, есть ли деньги на счете пользователя
-        $response = $this->billingService->getAccountBalance($userId);
-        AssertService::true($response->isSuccess(), $response->getMessage());
-        AssertService::greaterThanEq($response->getData(), $sum, 'User has not enough money in the account.');
-
+//        $response = $this->billingService->getAccountBalance($userId);
+//        AssertService::true($response->isSuccess(), $response->getMessage());
+//        AssertService::greaterThanEq($response->getData(), $sum, 'User has not enough money in the account.');
         return $this->maker->make($userId, $sum);
     }
 

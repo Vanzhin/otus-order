@@ -18,7 +18,7 @@ readonly class OrderModification
     )
     {
         $this->id = UlidService::generate();
-        $this->status = $status ?? OrderStatus::ISSUED;
+        $this->status = $status ?? OrderStatus::CREATED;
         $this->changedAt = new \DateTimeImmutable();
     }
 
