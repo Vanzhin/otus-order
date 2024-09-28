@@ -23,7 +23,6 @@ readonly class OrderCreatedEventHandler implements EventHandlerInterface
         private OrderRepositoryInterface             $orderRepository,
         private MessageBusInterface                  $messageBus,
         private OrderDTOTransformer                  $orderDTOTransformer,
-        private OrderModificationRepositoryInterface $orderModificationRepository,
     )
     {
     }
