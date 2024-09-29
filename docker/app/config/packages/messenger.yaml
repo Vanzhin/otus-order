@@ -15,6 +15,7 @@ framework:
         # failure_transport: failed
 
         transports:
+            # сюда только посылаю сообщения о звонках
             external_messages_to_forward:
                 dsn: '%env(EXTERNAL_MESSAGE_TRANSPORT_DSN)%'
                 serializer: App\Orders\Infrastructure\Serializer\ExternalMessageToForwardSerializer

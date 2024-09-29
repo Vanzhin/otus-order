@@ -7,7 +7,6 @@ use App\Orders\Domain\Aggregate\Order\OrderModification;
 use App\Orders\Domain\Aggregate\Order\OrderStatus;
 use App\Orders\Domain\Event\OrderCreatedEvent;
 use App\Orders\Domain\Message\ExternalMessageToForward;
-use App\Orders\Domain\Repository\OrderModificationRepositoryInterface;
 use App\Orders\Domain\Repository\OrderRepositoryInterface;
 use App\Shared\Application\Event\EventHandlerInterface;
 use App\Shared\Application\Message\MessageBusInterface;
